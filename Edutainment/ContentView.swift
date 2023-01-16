@@ -11,19 +11,15 @@ struct ContentView: View {
     @State private var isActive = false
     @State private var rangeFrom = 2
     @State private var rangeTo = 12
-    @State private var range = [Int]()
     @State private var questionAmounts = [5, 10, 15]
     @State private var questionAmount = 5
-    @State private var multiplicand = 0
-    @State private var multiplicator = 0
     @State private var numbers = [Int]()
     @State private var answers = [Int]()
     @State private var results = [Int]()
     @State private var score = 0
-    @State private var showingSubmitAnswers = true
     @State private var showingScore = false
+    @State private var showingSubmitAnswers = true
     @FocusState private var answerIsFocused: Bool
-
     
     var body: some View {
         NavigationView {
@@ -48,12 +44,12 @@ struct ContentView: View {
                             Text("Question amount")
                         }
 
-                        
                         HStack {
                             Spacer()
                             withAnimation {
                                 Button("Start Game", action: startGame)
                                     .font(.headline)
+                                    .foregroundColor(.blue)
                             }
                             Spacer()
                         }
@@ -93,7 +89,6 @@ struct ContentView: View {
                                 Button("Submit", action: submitAnswers)
                                     .font(.headline)
                                     .foregroundColor(.blue)
-
                                 Spacer()
                             }
                         }
@@ -119,13 +114,13 @@ struct ContentView: View {
             .navigationTitle("Edutainment")
         }
     }
+    
     func startGame() {
         numbers = [Int]()
         results = [Int]()
         answers = [Int]()
         
         isActive.toggle()
-        range = Array(rangeFrom...rangeTo)
         for _ in 0..<(questionAmount * 2) {
             numbers.append(Int.random(in: rangeFrom...rangeTo))
             results.append(0)
@@ -134,11 +129,10 @@ struct ContentView: View {
         for _ in 0..<questionAmount {
             answers.append(0)
         }
+        
         score = 0
         showingSubmitAnswers = true
         showingScore = false
-
-
     }
     
     func submitAnswers() {
@@ -151,7 +145,6 @@ struct ContentView: View {
         showingSubmitAnswers = false
         showingScore = true
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
